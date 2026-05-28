@@ -47,9 +47,7 @@ export default function Header({
     <header className="border-b border-[#1c1c1c] bg-[#080808]/90 backdrop-blur-md px-6 py-3.5 flex items-center justify-between sticky top-0 z-50">
       <div className="flex items-center gap-6">
         <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded border border-[#2c2c2c] bg-[#0c0c0c] flex items-center justify-center font-mono text-xs font-bold text-white">
-            V
-          </div>
+          <img src="/logo.png" alt="Boardweaver Logo" className="w-7 h-7 rounded object-cover border border-[#2c2c2c]" />
           <div>
             <h1 className="text-sm font-semibold tracking-tight text-white">Boardweaver</h1>
           </div>

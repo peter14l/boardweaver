@@ -19,9 +19,7 @@ export default function LandingPage() {
       {/* Top Header */}
       <nav className="max-w-6xl mx-auto w-full px-6 py-6 flex items-center justify-between z-10">
         <div className="flex items-center gap-2.5">
-          <div className="w-6 h-6 rounded border border-[#2c2c2c] bg-[#0c0c0c] flex items-center justify-center font-mono text-[10px] font-bold text-white">
-            V
-          </div>
+          <img src="/logo.png" alt="Boardweaver Logo" className="w-6 h-6 rounded object-cover border border-[#2c2c2c]" />
           <span className="text-sm font-semibold tracking-tight">Boardweaver</span>
         </div>
         <Link
