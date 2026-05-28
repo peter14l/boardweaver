@@ -332,6 +332,7 @@ export default function CanvasView({
             style={{
               transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
               transformOrigin: 'center',
+              overflow: 'visible',
             }}
           >
             <g transform="translate(100, 80)">
@@ -343,12 +344,12 @@ export default function CanvasView({
                   
                   const pinIndex = comp.pins.findIndex(p => p.num === conn.pinNum);
                   if (pinIndex === -1) return null;
-
+ 
                   const halfPins = Math.ceil(comp.pins.length / 2);
                   const isLeft = pinIndex < comp.pins.length / 2;
                   const pinX = isLeft ? comp.x - 12 : comp.x + comp.width + 12;
                   const pinY = comp.y + 35 + (pinIndex % halfPins) * 24;
-
+ 
                   const nextConn = net.connections[(connIdx + 1) % net.connections.length];
                   const nextComp = scenario.components.find(c => c.id === nextConn.componentId);
                   if (!nextComp) return null;
@@ -357,7 +358,7 @@ export default function CanvasView({
                   const nextIsLeft = nextPinIndex < nextComp.pins.length / 2;
                   const nextPinX = nextIsLeft ? nextComp.x - 12 : nextComp.x + nextComp.width + 12;
                   const nextPinY = nextComp.y + 35 + (nextPinIndex % nextHalfPins) * 24;
-
+ 
                   return (
                     <g key={`${netIdx}-${connIdx}`}>
                       <path
@@ -372,17 +373,17 @@ export default function CanvasView({
                   );
                 });
               })}
-
+ 
               {scenario.components.map((comp) => {
                 const isHovered = hoveredElement === comp.id;
                 const compErr = getDRCError('component', comp.id);
                 const halfPins = Math.ceil(comp.pins.length / 2);
                 const boxHeight = Math.max(comp.height, 45 + halfPins * 24);
-
+ 
                 let strokeColor = '#1c1c1c';
                 if (isHovered) strokeColor = '#fafafa';
                 if (compErr) strokeColor = compErr.type === 'error' ? '#ef4444' : '#f59e0b';
-
+ 
                 return (
                   <g
                     key={comp.id}
@@ -410,17 +411,17 @@ export default function CanvasView({
                     <text x={comp.x + 8} y={comp.y + 30} fill="#525252" className="text-[8px] font-mono">
                       {comp.value}
                     </text>
-
+ 
                     {comp.pins.map((pin, pinIdx) => {
                       const isLeft = pinIdx < comp.pins.length / 2;
                       const pinX = isLeft ? comp.x : comp.x + comp.width;
                       const pinY = comp.y + 35 + (pinIdx % halfPins) * 24;
                       const textX = isLeft ? pinX + 10 : pinX - 10;
                       const textAnchor = isLeft ? 'start' : 'end';
-
+ 
                       return (
                         <g
-                          key={pin.num}
+                           key={pin.num}
                           onMouseEnter={() => setHoveredPin({ compId: comp.id, pinNum: pin.num })}
                           onMouseLeave={() => setHoveredPin(null)}
                         >
@@ -453,7 +454,7 @@ export default function CanvasView({
             </g>
           </svg>
         )}
-
+ 
         {status === 'success' && activeTab === 'pcb' && (
           // --- PCB LAYOUT VIEW ---
           <svg
@@ -461,6 +462,7 @@ export default function CanvasView({
             style={{
               transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
               transformOrigin: 'center',
+              overflow: 'visible',
             }}
           >
             <g transform={`translate(${pcbOffsetX}, ${pcbOffsetY}) scale(${pcbFitScale})`}>
